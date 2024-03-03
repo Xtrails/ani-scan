@@ -1,0 +1,30 @@
+entity Robot {
+    type RobotType required
+    instrument Instrument required
+    lots String required
+    period Long required
+    operationType OperationType required
+    operationCount Long required
+    firstOperationDttm Instant required
+    lastOperationDttm Instant required
+    lastPrice Double
+    volumeByHour Long
+}
+
+entity Instrument {
+	secCode String
+}
+
+relationship OneToMany {
+	Instrument to Robot{instrument}
+}
+
+enum RobotType {
+ 	SIMPLE, LOOP, INSERT
+}
+
+enum OperationType {
+ 	BUY, SELL
+}
+
+paginate Robot with infinite-scroll
