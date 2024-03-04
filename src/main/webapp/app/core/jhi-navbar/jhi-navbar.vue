@@ -24,6 +24,11 @@
             <span v-text="t$('global.menu.home')"></span>
           </span>
         </b-nav-item>
+        <b-nav-item to="/robots/simple/table" v-if="authenticated" active-class="active">
+          <span>
+            <span v-text="t$('global.menu.robots')"></span>
+          </span>
+        </b-nav-item>
         <b-nav-item-dropdown right id="entity-menu" v-if="authenticated" active-class="active" class="pointer" data-cy="entity">
           <template #button-content>
             <span class="navbar-dropdown-menu">
