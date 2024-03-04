@@ -1,0 +1,33 @@
+{
+  "aniScanApp": {
+    "robot": {
+      "home": {
+        "title": "Robots",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Robot",
+        "createOrEditLabel": "Create or edit a Robot",
+        "notFound": "No Robots found"
+      },
+      "created": "A new Robot is created with identifier { param }",
+      "updated": "A Robot is updated with identifier { param }",
+      "deleted": "A Robot is deleted with identifier { param }",
+      "delete": {
+        "question": "Are you sure you want to delete Robot { id }?"
+      },
+      "detail": {
+        "title": "Robot"
+      },
+      "id": "ID",
+      "type": "Type",
+      "lots": "Lots",
+      "period": "Period",
+      "operationType": "Operation Type",
+      "operationCount": "Operation Count",
+      "firstOperationDttm": "First Operation Dttm",
+      "lastOperationDttm": "Last Operation Dttm",
+      "lastPrice": "Last Price",
+      "volumeByHour": "Volume By Hour",
+      "instrument": "Instrument"
+    }
+  }
+}

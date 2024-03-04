@@ -1,0 +1,10 @@
+{
+  "aniScanApp": {
+    "RobotType": {
+      "null": "",
+      "SIMPLE": "SIMPLE",
+      "LOOP": "LOOP",
+      "INSERT": "INSERT"
+    }
+  }
+}

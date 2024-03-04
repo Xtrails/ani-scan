@@ -1,0 +1,25 @@
+{
+  "aniScanApp": {
+    "instrument": {
+      "home": {
+        "title": "Instruments",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Instrument",
+        "createOrEditLabel": "Создать или отредактировать Instrument",
+        "notFound": "Instruments не найдено"
+      },
+      "created": "Новый Instrument создан с идентификатором { param }",
+      "updated": "Instrument обновлен с идентификатором { param }",
+      "deleted": "Instrument удален с идентификатором { param }",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Instrument { id }?"
+      },
+      "detail": {
+        "title": "Instrument"
+      },
+      "id": "ID",
+      "secCode": "Sec Code",
+      "robot": "Robot"
+    }
+  }
+}

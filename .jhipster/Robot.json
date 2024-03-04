@@ -1,0 +1,65 @@
+{
+  "annotations": {
+    "changelogDate": "20240225095443"
+  },
+  "applications": "*",
+  "entityTableName": "robot",
+  "fields": [
+    {
+      "fieldName": "type",
+      "fieldType": "RobotType",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "SIMPLE,LOOP,INSERT"
+    },
+    {
+      "fieldName": "lots",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "period",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "operationType",
+      "fieldType": "OperationType",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "BUY,SELL"
+    },
+    {
+      "fieldName": "operationCount",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "firstOperationDttm",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "lastOperationDttm",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "lastPrice",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "volumeByHour",
+      "fieldType": "Long"
+    }
+  ],
+  "name": "Robot",
+  "pagination": "infinite-scroll",
+  "relationships": [
+    {
+      "otherEntityName": "instrument",
+      "relationshipName": "instrument",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no"
+}
