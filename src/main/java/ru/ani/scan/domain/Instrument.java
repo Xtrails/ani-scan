@@ -29,6 +29,11 @@ public class Instrument implements Serializable {
     @JsonIgnoreProperties(value = { "instrument" }, allowSetters = true)
     private Set<Robot> robots = new HashSet<>();
 
+    public Instrument(Long id, String secCode) {
+        this.id = id;
+        this.secCode = secCode;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {

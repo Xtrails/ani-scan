@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import ru.ani.scan.domain.enumeration.OperationType;
 import ru.ani.scan.domain.enumeration.RobotType;
 
@@ -63,6 +65,32 @@ public class Robot implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = { "robots" }, allowSetters = true)
     private Instrument instrument;
+
+    public Robot(
+        Long id,
+        RobotType type,
+        String lots,
+        Long period,
+        OperationType operationType,
+        Long operationCount,
+        LocalDateTime firstOperationDttm,
+        LocalDateTime lastOperationDttm,
+        Double lastPrice,
+        Long volumeByHour,
+        Instrument instrument
+    ) {
+        this.id = id;
+        this.type = type;
+        this.lots = lots;
+        this.period = period;
+        this.operationType = operationType;
+        this.operationCount = operationCount;
+        this.firstOperationDttm = firstOperationDttm.toInstant(ZoneOffset.UTC);
+        this.lastOperationDttm = lastOperationDttm.toInstant(ZoneOffset.UTC);
+        this.lastPrice = lastPrice;
+        this.volumeByHour = volumeByHour;
+        this.instrument = instrument;
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
