@@ -34,6 +34,8 @@ public class Instrument implements Serializable {
         this.secCode = secCode;
     }
 
+    public Instrument() {}
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {

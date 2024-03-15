@@ -25,6 +25,7 @@
       "operationCount": "Operation Count",
       "firstOperationDttm": "First Operation Dttm",
       "lastOperationDttm": "Last Operation Dttm",
+      "nextOperationDttm": "Next Operation Dttm",
       "lastPrice": "Last Price",
       "volumeByHour": "Volume By Hour",
       "instrument": "Instrument"
