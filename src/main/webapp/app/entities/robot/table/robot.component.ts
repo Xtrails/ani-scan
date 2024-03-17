@@ -12,10 +12,6 @@ import Stomp from 'webstomp-client';
 import { Robot } from '../../../shared/model/robot.model';
 import { RobotType } from '../../../shared/model/enumerations/robot-type.model';
 import { Instrument } from '../../../shared/model/instrument.model';
-import '@grapecity/wijmo.styles/wijmo.css';
-// import "bootstrap.css";
-import '@grapecity/wijmo.vue2.grid';
-import * as wjcGrid from '@grapecity/wijmo.grid';
 
 export default defineComponent({
   compatConfig: { MODE: 3 },
@@ -62,7 +58,6 @@ export default defineComponent({
     }
 
     const sort = () => {
-      console.log('propOrder.value = ', propOrder.value);
       switch (propOrder.value) {
         case 'lots':
           if (reverse.value) {
@@ -207,6 +202,7 @@ export default defineComponent({
     const retrieveRobots = async () => {
       const socket = new SockJS('http://localhost:8081/ws');
       const stompClient = Stomp.over(socket);
+      stompClient.debug = () => {};
       let connected = false;
       stompClient.connect(
         {},

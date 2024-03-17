@@ -53,7 +53,16 @@
         <tbody>
           <tr v-for="robot in robots" :key="robot.id" data-cy="entityTable">
             <td>{{ robot.instrument.secCode }}</td>
-            <td v-text="t$('aniScanApp.OperationType.' + robot.operationType)"></td>
+            <td
+              class="buy-operation"
+              v-text="t$('aniScanApp.OperationType.' + robot.operationType)"
+              v-if="robot.operationType == 'BUY'"
+            ></td>
+            <td
+              class="sell-operation"
+              v-text="t$('aniScanApp.OperationType.' + robot.operationType)"
+              v-if="robot.operationType == 'SELL'"
+            ></td>
             <td>{{ robot.lots }}</td>
             <td>{{ robot.period }}</td>
             <td>{{ robot.operationCount }}</td>
