@@ -332,6 +332,7 @@ export default {
               stompClient.unsubscribe();
               console.log(error);
               connected = false;
+              deleteAllRobots();
             },
           );
           isFetching.value = true;
