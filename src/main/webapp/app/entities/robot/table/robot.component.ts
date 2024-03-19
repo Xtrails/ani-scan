@@ -236,33 +236,6 @@ export default defineComponent({
         },
       );
       isFetching.value = true;
-      try {
-        // const paginationQuery = {
-        //   page: page.value - 1,
-        //   size: itemsPerPage.value,
-        //   sort: sort(),
-        // };
-        // console.log(paginationQuery)
-        // const res = await simpleRobotService().retrieve(paginationQuery);
-        // totalItems.value = Number(res.headers['x-total-count']);
-        // queryCount.value = totalItems.value;
-        // links.value = dataUtils.parseLinks(res.headers?.['link']);
-        // for (let i = 0; i < res.data.length; i++) {
-        //     if (robots.value.some(e => e.id === res.data[i].id)) {
-        //       const index = robots.value.findIndex(e => e.id === res.data[i].id)
-        //       // console.log("update from", res.data[i]);
-        //       // console.log("update to", robots.value[index]);
-        //       robots.value[index] = res.data[i];
-        //     } else {
-        //       // console.log("push", res.data[i]);
-        //       robots.value.push(res.data[i]);
-        //     }
-        // }
-      } catch (err) {
-        alertService.showHttpError(err.response);
-      } finally {
-        isFetching.value = false;
-      }
     };
 
     const handleSyncList = () => {
@@ -270,10 +243,7 @@ export default defineComponent({
     };
 
     onMounted(async () => {
-      // while (true) {
       await retrieveRobots();
-      //   await delay(retryDelay.value);
-      // }
     });
 
     const removeId: Ref<number> = ref(null);

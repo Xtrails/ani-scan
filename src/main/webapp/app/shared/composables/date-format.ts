@@ -7,7 +7,6 @@ export const DATE_FORMAT = 'YYYY-MM-DD';
 export const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm';
 
 export const DATE_TIME_LONG_FORMAT = 'YYYY-MM-DDTHH:mm';
-export const TIME_SHORT_FORMAT = 'HH:mm:ss';
 
 export const useDateFormat = ({ entityRef }: { entityRef?: Ref<Record<string, any>> } = {}) => {
   const formatDate = value => (value ? dayjs(value).format(DATE_TIME_FORMAT) : '');
@@ -38,21 +37,23 @@ export const useDateFormat = ({ entityRef }: { entityRef?: Ref<Record<string, an
 
   const i18n = useI18n();
   const formatDateI18N = (date, format = 'short') => (date ? i18n.d(Date.parse(date), format) : null);
-  function formatOnlyTime(value) {
-    if (value) {
-      return moment(String(value)).format(TIME_SHORT_FORMAT);
-    }
-  }
   const i18nUtils = {
     formatDateI18N,
     formatDateLong: date => formatDateI18N(date, 'long'),
     formatDateShort: date => formatDateI18N(date, 'short'),
-    formatOnlyTimeShort: date => formatOnlyTime(date),
+  };
+
+  const onlyTimeFormatter = function onlyTimeFormatter(params) {
+    if (params.value) {
+      return moment(String(params.value)).format('HH:mm:ss');
+    }
+    return '';
   };
 
   return {
     ...dateFormatUtils,
     ...entityUtils,
     ...i18nUtils,
+    ...onlyTimeFormatter,
   };
 };

@@ -22,7 +22,7 @@
       "lots": "Лот",
       "period": "Период (сек.)",
       "operationType": "Тип операции",
-      "operationCount": "Количество",
+      "operationCount": "Кол-во.",
       "firstOperationDttm": "Время первой операции",
       "lastOperationDttm": "Время последней операции",
       "nextOperationDttm": "Время следующей операции",
