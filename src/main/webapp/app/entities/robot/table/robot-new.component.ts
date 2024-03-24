@@ -29,9 +29,10 @@ export default {
     const autoSizeStrategy = ref(null);
     const TIME_SHORT_FORMAT = 'HH:mm:ss';
 
-    const DEBUG_WEBSOCKET_FLG = false;
+    const DEBUG_WEBSOCKET_FLG = true;
     const RECONNECT_WEBSOCKET_DELAY_MS = 2000;
-    const WEBSOCKET_CONNECT_ADDRESS = 'http://localhost:8081/ws';
+    // const WEBSOCKET_CONNECT_ADDRESS = 'http://localhost:8081/ws';
+    const WEBSOCKET_CONNECT_ADDRESS = 'http://192.168.0.160:8081/ws';
     const WEBSOCKET_SUBSCRIBE_ADDRESS = '/app/robots/all';
 
     const rowHeight = 30;
@@ -294,6 +295,7 @@ export default {
       const reconnectWebSocket = async () => {
         while (!connected) {
           const socket = new SockJS(WEBSOCKET_CONNECT_ADDRESS);
+          //, {headers : {'Content-Security-Policy': "default-src 'self'; connect-src 'self'; frame-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://storage.googleapis.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:"}});
           const stompClient = Stomp.over(socket);
 
           //Выключение логирования сокета

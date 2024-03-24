@@ -24,7 +24,7 @@
             <span v-text="t$('global.menu.home')"></span>
           </span>
         </b-nav-item>
-        <b-nav-item to="/robots/table" v-if="authenticated" active-class="active">
+        <b-nav-item to="/robots/table" active-class="active">
           <span>
             <span v-text="t$('global.menu.robots')"></span>
           </span>

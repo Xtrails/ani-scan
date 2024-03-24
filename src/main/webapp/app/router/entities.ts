@@ -70,7 +70,7 @@ export default {
       path: 'robots/table',
       name: 'RobotTable',
       component: RobotTable,
-      meta: { authorities: [Authority.USER, Authority.ADMIN] },
+      // meta: { authorities: [Authority.USER, Authority.ADMIN] },
     },
     // jhipster-needle-add-entity-to-router - JHipster will add entities to the router here
   ],
