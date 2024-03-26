@@ -22,7 +22,24 @@
               data-cy="secCode"
               :class="{ valid: !v$.secCode.$invalid, invalid: v$.secCode.$invalid }"
               v-model="v$.secCode.$model"
+              required
             />
+            <div v-if="v$.secCode.$anyDirty && v$.secCode.$invalid">
+              <small class="form-text text-danger" v-for="error of v$.secCode.$errors" :key="error.$uid">{{ error.$message }}</small>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" v-text="t$('aniScanApp.instrument.type')" for="instrument-type"></label>
+            <select class="form-control" id="instrument-type" data-cy="type" name="type" v-model="instrument.type">
+              <option v-bind:value="null"></option>
+              <option
+                v-bind:value="instrument.type && instrumentTypeOption.id === instrument.type.id ? instrument.type : instrumentTypeOption"
+                v-for="instrumentTypeOption in instrumentTypes"
+                :key="instrumentTypeOption.id"
+              >
+                {{ instrumentTypeOption.id }}
+              </option>
+            </select>
           </div>
         </div>
         <div>

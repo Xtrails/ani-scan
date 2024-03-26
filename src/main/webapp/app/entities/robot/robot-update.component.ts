@@ -40,6 +40,7 @@ export default defineComponent({
         const res = await robotService().find(robotId);
         res.firstOperationDttm = new Date(res.firstOperationDttm);
         res.lastOperationDttm = new Date(res.lastOperationDttm);
+        res.detectionDttm = new Date(res.detectionDttm);
         robot.value = res;
       } catch (error) {
         alertService.showHttpError(error.response);
@@ -84,6 +85,9 @@ export default defineComponent({
         required: validations.required(t$('entity.validation.required').toString()),
       },
       lastOperationDttm: {
+        required: validations.required(t$('entity.validation.required').toString()),
+      },
+      detectionDttm: {
         required: validations.required(t$('entity.validation.required').toString()),
       },
       lastPrice: {},

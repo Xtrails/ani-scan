@@ -2,6 +2,7 @@ package ru.ani.scan.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,19 +23,17 @@ public class Instrument implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "sec_code")
+    @NotNull
+    @Column(name = "sec_code", nullable = false)
     private String secCode;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "instrument")
     @JsonIgnoreProperties(value = { "instrument" }, allowSetters = true)
     private Set<Robot> robots = new HashSet<>();
 
-    public Instrument(Long id, String secCode) {
-        this.id = id;
-        this.secCode = secCode;
-    }
-
-    public Instrument() {}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = { "instruments" }, allowSetters = true)
+    private InstrumentType type;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -92,6 +91,19 @@ public class Instrument implements Serializable {
     public Instrument removeRobot(Robot robot) {
         this.robots.remove(robot);
         robot.setInstrument(null);
+        return this;
+    }
+
+    public InstrumentType getType() {
+        return this.type;
+    }
+
+    public void setType(InstrumentType instrumentType) {
+        this.type = instrumentType;
+    }
+
+    public Instrument type(InstrumentType instrumentType) {
+        this.setType(instrumentType);
         return this;
     }
 

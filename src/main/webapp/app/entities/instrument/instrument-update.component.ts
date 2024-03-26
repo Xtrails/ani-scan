@@ -7,6 +7,8 @@ import InstrumentService from './instrument.service';
 import { useValidation } from '@/shared/composables';
 import { useAlertService } from '@/shared/alert/alert.service';
 
+import InstrumentTypeService from '@/entities/instrument-type/instrument-type.service';
+import { type IInstrumentType } from '@/shared/model/instrument-type.model';
 import { type IInstrument, Instrument } from '@/shared/model/instrument.model';
 
 export default defineComponent({
@@ -17,6 +19,10 @@ export default defineComponent({
     const alertService = inject('alertService', () => useAlertService(), true);
 
     const instrument: Ref<IInstrument> = ref(new Instrument());
+
+    const instrumentTypeService = inject('instrumentTypeService', () => new InstrumentTypeService());
+
+    const instrumentTypes: Ref<IInstrumentType[]> = ref([]);
     const isSaving = ref(false);
     const currentLanguage = inject('currentLanguage', () => computed(() => navigator.language ?? 'en'), true);
 
@@ -38,15 +44,24 @@ export default defineComponent({
       retrieveInstrument(route.params.instrumentId);
     }
 
-    const initRelationships = () => {};
+    const initRelationships = () => {
+      instrumentTypeService()
+        .retrieve()
+        .then(res => {
+          instrumentTypes.value = res.data;
+        });
+    };
 
     initRelationships();
 
     const { t: t$ } = useI18n();
     const validations = useValidation();
     const validationRules = {
-      secCode: {},
+      secCode: {
+        required: validations.required(t$('entity.validation.required').toString()),
+      },
       robots: {},
+      type: {},
     };
     const v$ = useVuelidate(validationRules, instrument as any);
     v$.value.$validate();
@@ -58,6 +73,7 @@ export default defineComponent({
       previousState,
       isSaving,
       currentLanguage,
+      instrumentTypes,
       v$,
       t$,
     };

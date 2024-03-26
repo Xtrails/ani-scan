@@ -1,5 +1,7 @@
 package ru.ani.scan.web.rest;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -46,7 +48,7 @@ public class InstrumentResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<Instrument> createInstrument(@RequestBody Instrument instrument) throws URISyntaxException {
+    public ResponseEntity<Instrument> createInstrument(@Valid @RequestBody Instrument instrument) throws URISyntaxException {
         log.debug("REST request to save Instrument : {}", instrument);
         if (instrument.getId() != null) {
             throw new BadRequestAlertException("A new instrument cannot already have an ID", ENTITY_NAME, "idexists");
@@ -71,7 +73,7 @@ public class InstrumentResource {
     @PutMapping("/{id}")
     public ResponseEntity<Instrument> updateInstrument(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Instrument instrument
+        @Valid @RequestBody Instrument instrument
     ) throws URISyntaxException {
         log.debug("REST request to update Instrument : {}, {}", id, instrument);
         if (instrument.getId() == null) {
@@ -106,7 +108,7 @@ public class InstrumentResource {
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<Instrument> partialUpdateInstrument(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Instrument instrument
+        @NotNull @RequestBody Instrument instrument
     ) throws URISyntaxException {
         log.debug("REST request to partial update Instrument partially : {}, {}", id, instrument);
         if (instrument.getId() == null) {

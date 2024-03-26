@@ -12,6 +12,7 @@ export interface IRobot {
   firstOperationDttm?: Date;
   lastOperationDttm?: Date;
   nextOperationDttm?: Date;
+  detectionDttm?: Date;
   lastPrice?: number | null;
   volumeByHour?: number | null;
   instrument?: IInstrument | null;
@@ -28,6 +29,7 @@ export class Robot implements IRobot {
     public firstOperationDttm?: Date,
     public lastOperationDttm?: Date,
     public nextOperationDttm?: Date,
+    public detectionDttm?: Date,
     public lastPrice?: number | null,
     public volumeByHour?: number | null,
     public instrument?: IInstrument | null,

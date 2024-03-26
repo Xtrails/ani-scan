@@ -43,6 +43,11 @@
       "fieldValidateRules": ["required"]
     },
     {
+      "fieldName": "detectionDttm",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
       "fieldName": "lastPrice",
       "fieldType": "Double"
     },

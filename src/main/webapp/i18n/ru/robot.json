@@ -26,6 +26,7 @@
       "firstOperationDttm": "Время первой операции",
       "lastOperationDttm": "Время последней операции",
       "nextOperationDttm": "Время следующей операции",
+      "detectionDttm": "Время обнаружения",
       "lastPrice": "Цена последней операции",
       "volumeByHour": "Объем/час",
       "instrument": "Инструмент"

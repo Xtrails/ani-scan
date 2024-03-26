@@ -123,6 +123,28 @@ class InstrumentResourceIT {
 
     @Test
     @Transactional
+    void checkSecCodeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = instrumentRepository.findAll().size();
+        // set the field null
+        instrument.setSecCode(null);
+
+        // Create the Instrument, which fails.
+
+        restInstrumentMockMvc
+            .perform(
+                post(ENTITY_API_URL)
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(instrument))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<Instrument> instrumentList = instrumentRepository.findAll();
+        assertThat(instrumentList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllInstruments() throws Exception {
         // Initialize the database
         instrumentRepository.saveAndFlush(instrument);

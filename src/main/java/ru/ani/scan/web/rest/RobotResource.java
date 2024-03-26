@@ -149,6 +149,9 @@ public class RobotResource {
                 if (robot.getLastOperationDttm() != null) {
                     existingRobot.setLastOperationDttm(robot.getLastOperationDttm());
                 }
+                if (robot.getDetectionDttm() != null) {
+                    existingRobot.setDetectionDttm(robot.getDetectionDttm());
+                }
                 if (robot.getLastPrice() != null) {
                     existingRobot.setLastPrice(robot.getLastPrice());
                 }

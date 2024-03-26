@@ -10,7 +10,8 @@
         "main": "Entities",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
         "instrument": "Instrument",
-        "robot": "Robot"
+        "robot": "Robot",
+        "instrumentType": "Instrument Type"
       },
       "account": {
         "main": "Account",

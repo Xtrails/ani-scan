@@ -2,6 +2,7 @@ package ru.ani.scan.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static ru.ani.scan.domain.InstrumentTestSamples.*;
+import static ru.ani.scan.domain.InstrumentTypeTestSamples.*;
 import static ru.ani.scan.domain.RobotTestSamples.*;
 
 import java.util.HashSet;
@@ -45,5 +46,17 @@ class InstrumentTest {
         instrument.setRobots(new HashSet<>());
         assertThat(instrument.getRobots()).doesNotContain(robotBack);
         assertThat(robotBack.getInstrument()).isNull();
+    }
+
+    @Test
+    void typeTest() throws Exception {
+        Instrument instrument = getInstrumentRandomSampleGenerator();
+        InstrumentType instrumentTypeBack = getInstrumentTypeRandomSampleGenerator();
+
+        instrument.setType(instrumentTypeBack);
+        assertThat(instrument.getType()).isEqualTo(instrumentTypeBack);
+
+        instrument.type(null);
+        assertThat(instrument.getType()).isNull();
     }
 }

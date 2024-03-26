@@ -35,6 +35,9 @@
             <column name="last_operation_dttm" type="${datetimeType}">
                 <constraints nullable="false" />
             </column>
+            <column name="detection_dttm" type="${datetimeType}">
+                <constraints nullable="false" />
+            </column>
             <column name="last_price" type="double">
                 <constraints nullable="true" />
             </column>
@@ -48,6 +51,7 @@
         </createTable>
         <dropDefaultValue tableName="robot" columnName="first_operation_dttm" columnDataType="${datetimeType}"/>
         <dropDefaultValue tableName="robot" columnName="last_operation_dttm" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="robot" columnName="detection_dttm" columnDataType="${datetimeType}"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
@@ -74,6 +78,7 @@
             <column name="operation_count" type="numeric"/>
             <column name="first_operation_dttm" type="date"/>
             <column name="last_operation_dttm" type="date"/>
+            <column name="detection_dttm" type="date"/>
             <column name="last_price" type="numeric"/>
             <column name="volume_by_hour" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->

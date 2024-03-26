@@ -7,7 +7,8 @@
   "fields": [
     {
       "fieldName": "secCode",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     }
   ],
   "name": "Instrument",
@@ -18,6 +19,12 @@
       "relationshipName": "robot",
       "relationshipSide": "left",
       "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "instrumentType",
+      "relationshipName": "type",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
     }
   ],
   "searchEngine": "no"

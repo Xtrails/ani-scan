@@ -1,0 +1,25 @@
+{
+  "aniScanApp": {
+    "instrumentType": {
+      "home": {
+        "title": "Instrument Types",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Instrument Type",
+        "createOrEditLabel": "Create or edit a Instrument Type",
+        "notFound": "No Instrument Types found"
+      },
+      "created": "A new Instrument Type is created with identifier { param }",
+      "updated": "A Instrument Type is updated with identifier { param }",
+      "deleted": "A Instrument Type is deleted with identifier { param }",
+      "delete": {
+        "question": "Are you sure you want to delete Instrument Type { id }?"
+      },
+      "detail": {
+        "title": "Instrument Type"
+      },
+      "id": "ID",
+      "name": "Name",
+      "instrument": "Instrument"
+    }
+  }
+}

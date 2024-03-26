@@ -49,6 +49,12 @@
             <span v-if="robot.lastOperationDttm">{{ formatDateLong(robot.lastOperationDttm) }}</span>
           </dd>
           <dt>
+            <span v-text="t$('aniScanApp.robot.detectionDttm')"></span>
+          </dt>
+          <dd>
+            <span v-if="robot.detectionDttm">{{ formatDateLong(robot.detectionDttm) }}</span>
+          </dd>
+          <dt>
             <span v-text="t$('aniScanApp.robot.lastPrice')"></span>
           </dt>
           <dd>

@@ -8,6 +8,8 @@ import InstrumentUpdate from './instrument-update.vue';
 import InstrumentService from './instrument.service';
 import AlertService from '@/shared/alert/alert.service';
 
+import InstrumentTypeService from '@/entities/instrument-type/instrument-type.service';
+
 type InstrumentUpdateComponentType = InstanceType<typeof InstrumentUpdate>;
 
 let route: Partial<RouteLocation>;
@@ -51,6 +53,10 @@ describe('Component Tests', () => {
         provide: {
           alertService,
           instrumentService: () => instrumentServiceStub,
+          instrumentTypeService: () =>
+            sinon.createStubInstance<InstrumentTypeService>(InstrumentTypeService, {
+              retrieve: sinon.stub().resolves({}),
+            } as any),
         },
       };
     });

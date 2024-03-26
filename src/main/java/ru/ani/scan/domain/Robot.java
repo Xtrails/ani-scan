@@ -5,8 +5,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import ru.ani.scan.domain.enumeration.OperationType;
 import ru.ani.scan.domain.enumeration.RobotType;
 
@@ -56,6 +54,10 @@ public class Robot implements Serializable {
     @Column(name = "last_operation_dttm", nullable = false)
     private Instant lastOperationDttm;
 
+    @NotNull
+    @Column(name = "detection_dttm", nullable = false)
+    private Instant detectionDttm;
+
     @Column(name = "last_price")
     private Double lastPrice;
 
@@ -63,34 +65,8 @@ public class Robot implements Serializable {
     private Long volumeByHour;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "robots" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "robots", "type" }, allowSetters = true)
     private Instrument instrument;
-
-    public Robot(
-        Long id,
-        RobotType type,
-        String lots,
-        Long period,
-        OperationType operationType,
-        Long operationCount,
-        LocalDateTime firstOperationDttm,
-        LocalDateTime lastOperationDttm,
-        Double lastPrice,
-        Long volumeByHour,
-        Instrument instrument
-    ) {
-        this.id = id;
-        this.type = type;
-        this.lots = lots;
-        this.period = period;
-        this.operationType = operationType;
-        this.operationCount = operationCount;
-        this.firstOperationDttm = firstOperationDttm.toInstant(ZoneOffset.UTC);
-        this.lastOperationDttm = lastOperationDttm.toInstant(ZoneOffset.UTC);
-        this.lastPrice = lastPrice;
-        this.volumeByHour = volumeByHour;
-        this.instrument = instrument;
-    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -198,6 +174,19 @@ public class Robot implements Serializable {
         this.lastOperationDttm = lastOperationDttm;
     }
 
+    public Instant getDetectionDttm() {
+        return this.detectionDttm;
+    }
+
+    public Robot detectionDttm(Instant detectionDttm) {
+        this.setDetectionDttm(detectionDttm);
+        return this;
+    }
+
+    public void setDetectionDttm(Instant detectionDttm) {
+        this.detectionDttm = detectionDttm;
+    }
+
     public Double getLastPrice() {
         return this.lastPrice;
     }
@@ -268,6 +257,7 @@ public class Robot implements Serializable {
             ", operationCount=" + getOperationCount() +
             ", firstOperationDttm='" + getFirstOperationDttm() + "'" +
             ", lastOperationDttm='" + getLastOperationDttm() + "'" +
+            ", detectionDttm='" + getDetectionDttm() + "'" +
             ", lastPrice=" + getLastPrice() +
             ", volumeByHour=" + getVolumeByHour() +
             "}";

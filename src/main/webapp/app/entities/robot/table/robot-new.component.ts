@@ -31,15 +31,16 @@ export default {
 
     const DEBUG_WEBSOCKET_FLG = true;
     const RECONNECT_WEBSOCKET_DELAY_MS = 2000;
-    // const WEBSOCKET_CONNECT_ADDRESS = 'http://localhost:8081/ws';
     const WEBSOCKET_CONNECT_ADDRESS = 'http://192.168.0.160:8081/ws';
     const WEBSOCKET_SUBSCRIBE_ADDRESS = '/app/robots/all';
 
-    const rowHeight = 30;
+    const rowHeight = 23;
     const width = '100%';
     const height = '100%';
     const themeClass = 'ag-theme-quartz';
     const rowSelection = 'multiple';
+    const flashDuration = 60000;
+    const fadeDuration = 15000;
     // const themeClass = "ag-theme-quartz-dark";
 
     //Headers column params
@@ -55,94 +56,122 @@ export default {
       {
         colId: 'instrument',
         field: 'instrument',
-        width: 165,
+        width: 95,
+        wrapText: true,
+        autoHeight: true,
         headerComponentParams: { displayName: t$('aniScanApp.robot.instrument').toString() },
         valueFormatter: instrumentFormatter,
-        cellStyle: { 'text-align': 'center', 'font-weight': '500' },
+        cellStyle: { 'text-align': 'center', 'font-weight': '650', 'padding-left': '4px', 'padding-right': '2px', 'padding-bottom': '1px' },
         // headerCheckboxSelection: true,
         checkboxSelection: true,
         showDisabledCheckboxes: true,
-        filter: true,
+        // filter: true,
       },
       {
         colId: 'operationType',
         field: 'operationType',
-        width: 125,
+        width: 85,
+        wrapText: true,
+        autoHeight: true,
         headerComponentParams: { displayName: t$('aniScanApp.robot.operationType').toString() },
         cellStyle: params => {
           if (params.value === 'BUY') {
-            return { color: 'darkcyan', 'text-align': 'center', 'font-weight': '450' };
+            return { color: 'green', 'text-align': 'center', 'font-weight': '500', 'padding-left': '2px', 'padding-right': '2px' };
           }
           if (params.value === 'SELL') {
-            return { color: 'indianred', 'text-align': 'center', 'font-weight': '450' };
+            return { color: 'red', 'text-align': 'center', 'font-weight': '500', 'padding-left': '2px', 'padding-right': '2px' };
           }
           return null;
         },
-        filter: true,
+        // filter: true,
       },
       {
         colId: 'lots',
         field: 'lots',
-        width: 100,
+        width: 70,
+        wrapText: true,
+        autoHeight: true,
         headerComponentParams: { displayName: t$('aniScanApp.robot.lots').toString() },
-        cellStyle: { 'text-align': 'center' },
+        cellStyle: { 'text-align': 'center', 'font-weight': '500', 'padding-left': '2px', 'padding-right': '2px' },
         comparator: (valueA, valueB, nodeA, nodeB, isDescending) => {
           if (valueA == valueB) {
             return 0;
           }
           return lotsToNumber(valueA) < lotsToNumber(valueB) ? -1 : lotsToNumber(valueB) < lotsToNumber(valueA) ? 1 : 0;
         },
-        filter: true,
+        // filter: true,
       },
       {
         colId: 'period',
         field: 'period',
-        width: 110,
+        width: 70,
+        wrapText: true,
+        autoHeight: true,
         headerComponentParams: { displayName: t$('aniScanApp.robot.period').toString() },
-        cellStyle: { 'text-align': 'right' },
-        filter: true,
+        cellStyle: { 'text-align': 'right', 'font-weight': '500', 'padding-left': '2px', 'padding-right': '2px' },
+        // filter: true,
       },
       {
         colId: 'operationCount',
         field: 'operationCount',
-        width: 115,
+        width: 70,
+        wrapText: true,
+        autoHeight: true,
         headerComponentParams: { displayName: t$('aniScanApp.robot.operationCount').toString() },
         valueGetter: 'data.operationCount',
-        cellStyle: { 'text-align': 'right' },
-        filter: true,
+        cellStyle: { 'text-align': 'right', 'padding-left': '2px', 'padding-right': '2px' },
+        // filter: true,
       },
       {
         colId: 'volumeByHour',
         field: 'volumeByHour',
-        width: 100,
+        width: 70,
+        wrapText: true,
+        autoHeight: true,
         headerComponentParams: { displayName: t$('aniScanApp.robot.volumeByHour').toString() },
         valueFormatter: volumeByHourFormatter,
-        cellStyle: { 'text-align': 'right' },
-        filter: true,
+        cellStyle: { 'text-align': 'right', 'padding-left': '2px', 'padding-right': '2px' },
+        // filter: true,
+      },
+      {
+        colId: 'detectionDttm',
+        field: 'detectionDttm',
+        width: 107,
+        wrapText: true,
+        autoHeight: true,
+        headerComponentParams: { displayName: t$('aniScanApp.robot.detectionDttm').toString() },
+        valueFormatter: onlyTimeFormatter,
+        cellStyle: { 'text-align': 'right', 'padding-left': '2px', 'padding-right': '2px' },
       },
       {
         colId: 'firstOperationDttm',
         field: 'firstOperationDttm',
         width: 100,
+        wrapText: true,
+        autoHeight: true,
         headerComponentParams: { displayName: t$('aniScanApp.robot.firstOperationDttm').toString() },
         valueFormatter: onlyTimeFormatter,
-        cellStyle: { 'text-align': 'right' },
+        cellStyle: { 'text-align': 'right', 'padding-left': '2px', 'padding-right': '2px' },
       },
       {
         colId: 'lastOperationDttm',
         field: 'lastOperationDttm',
-        width: 110,
+        width: 100,
+        wrapText: true,
+        autoHeight: true,
         headerComponentParams: { displayName: t$('aniScanApp.robot.lastOperationDttm').toString() },
         valueFormatter: onlyTimeFormatter,
-        cellStyle: { 'text-align': 'right' },
+        cellStyle: { 'text-align': 'right', 'padding-left': '2px', 'padding-right': '2px' },
       },
       {
         colId: 'nextOperationDttm',
         field: 'nextOperationDttm',
-        width: 115,
+        width: 100,
+        wrapText: true,
+        autoHeight: true,
         headerComponentParams: { displayName: t$('aniScanApp.robot.nextOperationDttm').toString() },
         valueFormatter: onlyTimeFormatter,
-        cellStyle: { 'text-align': 'right' },
+        cellStyle: { 'text-align': 'right', 'padding-left': '2px', 'padding-right': '2px' },
       },
       // {colId: "lastPrice", field: "lastPrice", headerComponentParams: { displayName: t$('aniScanApp.robot.lastPrice').toString() }},
       // {colId: "type", field: "type", headerComponentParams: { displayName: t$('aniScanApp.robot.type').toString() }},
@@ -220,6 +249,7 @@ export default {
         data.f_op_dttm,
         data.l_op_dttm,
         data.n_op_dttm,
+        data.d_op_dttm,
         data.l_pr,
         data.vol,
         new Instrument(0, data.code),
@@ -229,7 +259,7 @@ export default {
       gridApi.value.setGridOption('rowData', rowData);
       gridApi.value.refreshCells();
       const rowNode = gridApi.value.getRowNode(data.id);
-      gridApi.value.flashCells({ rowNodes: [rowNode] });
+      gridApi.value.flashCells({ rowNodes: [rowNode], flashDuration: flashDuration, fadeDuration: fadeDuration });
       restoreFromSave();
     }
 
@@ -264,6 +294,9 @@ export default {
         if (data.op_c != null) {
           rowData[index].operationCount = data.op_c;
         }
+        if (data.d_op_dttm != null) {
+          rowData[index].detectionDttm = data.d_op_dttm;
+        }
         if (data.f_op_dttm != null) {
           rowData[index].firstOperationDttm = data.f_op_dttm;
         }
@@ -279,10 +312,10 @@ export default {
         if (data.vol != null) {
           rowData[index].volumeByHour = data.vol;
         }
-        saveSort();
+        // saveSort();
         gridApi.value.setGridOption('rowData', rowData);
         gridApi.value.refreshCells();
-        restoreFromSave();
+        // restoreFromSave();
       }
     }
 

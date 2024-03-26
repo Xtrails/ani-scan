@@ -55,6 +55,9 @@ class RobotResourceIT {
     private static final Instant DEFAULT_LAST_OPERATION_DTTM = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_LAST_OPERATION_DTTM = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
+    private static final Instant DEFAULT_DETECTION_DTTM = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_DETECTION_DTTM = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
     private static final Double DEFAULT_LAST_PRICE = 1D;
     private static final Double UPDATED_LAST_PRICE = 2D;
 
@@ -93,6 +96,7 @@ class RobotResourceIT {
             .operationCount(DEFAULT_OPERATION_COUNT)
             .firstOperationDttm(DEFAULT_FIRST_OPERATION_DTTM)
             .lastOperationDttm(DEFAULT_LAST_OPERATION_DTTM)
+            .detectionDttm(DEFAULT_DETECTION_DTTM)
             .lastPrice(DEFAULT_LAST_PRICE)
             .volumeByHour(DEFAULT_VOLUME_BY_HOUR);
         return robot;
@@ -113,6 +117,7 @@ class RobotResourceIT {
             .operationCount(UPDATED_OPERATION_COUNT)
             .firstOperationDttm(UPDATED_FIRST_OPERATION_DTTM)
             .lastOperationDttm(UPDATED_LAST_OPERATION_DTTM)
+            .detectionDttm(UPDATED_DETECTION_DTTM)
             .lastPrice(UPDATED_LAST_PRICE)
             .volumeByHour(UPDATED_VOLUME_BY_HOUR);
         return robot;
@@ -145,6 +150,7 @@ class RobotResourceIT {
         assertThat(testRobot.getOperationCount()).isEqualTo(DEFAULT_OPERATION_COUNT);
         assertThat(testRobot.getFirstOperationDttm()).isEqualTo(DEFAULT_FIRST_OPERATION_DTTM);
         assertThat(testRobot.getLastOperationDttm()).isEqualTo(DEFAULT_LAST_OPERATION_DTTM);
+        assertThat(testRobot.getDetectionDttm()).isEqualTo(DEFAULT_DETECTION_DTTM);
         assertThat(testRobot.getLastPrice()).isEqualTo(DEFAULT_LAST_PRICE);
         assertThat(testRobot.getVolumeByHour()).isEqualTo(DEFAULT_VOLUME_BY_HOUR);
     }
@@ -304,6 +310,25 @@ class RobotResourceIT {
 
     @Test
     @Transactional
+    void checkDetectionDttmIsRequired() throws Exception {
+        int databaseSizeBeforeTest = robotRepository.findAll().size();
+        // set the field null
+        robot.setDetectionDttm(null);
+
+        // Create the Robot, which fails.
+
+        restRobotMockMvc
+            .perform(
+                post(ENTITY_API_URL).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(robot))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<Robot> robotList = robotRepository.findAll();
+        assertThat(robotList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllRobots() throws Exception {
         // Initialize the database
         robotRepository.saveAndFlush(robot);
@@ -321,6 +346,7 @@ class RobotResourceIT {
             .andExpect(jsonPath("$.[*].operationCount").value(hasItem(DEFAULT_OPERATION_COUNT.intValue())))
             .andExpect(jsonPath("$.[*].firstOperationDttm").value(hasItem(DEFAULT_FIRST_OPERATION_DTTM.toString())))
             .andExpect(jsonPath("$.[*].lastOperationDttm").value(hasItem(DEFAULT_LAST_OPERATION_DTTM.toString())))
+            .andExpect(jsonPath("$.[*].detectionDttm").value(hasItem(DEFAULT_DETECTION_DTTM.toString())))
             .andExpect(jsonPath("$.[*].lastPrice").value(hasItem(DEFAULT_LAST_PRICE.doubleValue())))
             .andExpect(jsonPath("$.[*].volumeByHour").value(hasItem(DEFAULT_VOLUME_BY_HOUR.intValue())));
     }
@@ -344,6 +370,7 @@ class RobotResourceIT {
             .andExpect(jsonPath("$.operationCount").value(DEFAULT_OPERATION_COUNT.intValue()))
             .andExpect(jsonPath("$.firstOperationDttm").value(DEFAULT_FIRST_OPERATION_DTTM.toString()))
             .andExpect(jsonPath("$.lastOperationDttm").value(DEFAULT_LAST_OPERATION_DTTM.toString()))
+            .andExpect(jsonPath("$.detectionDttm").value(DEFAULT_DETECTION_DTTM.toString()))
             .andExpect(jsonPath("$.lastPrice").value(DEFAULT_LAST_PRICE.doubleValue()))
             .andExpect(jsonPath("$.volumeByHour").value(DEFAULT_VOLUME_BY_HOUR.intValue()));
     }
@@ -375,6 +402,7 @@ class RobotResourceIT {
             .operationCount(UPDATED_OPERATION_COUNT)
             .firstOperationDttm(UPDATED_FIRST_OPERATION_DTTM)
             .lastOperationDttm(UPDATED_LAST_OPERATION_DTTM)
+            .detectionDttm(UPDATED_DETECTION_DTTM)
             .lastPrice(UPDATED_LAST_PRICE)
             .volumeByHour(UPDATED_VOLUME_BY_HOUR);
 
@@ -398,6 +426,7 @@ class RobotResourceIT {
         assertThat(testRobot.getOperationCount()).isEqualTo(UPDATED_OPERATION_COUNT);
         assertThat(testRobot.getFirstOperationDttm()).isEqualTo(UPDATED_FIRST_OPERATION_DTTM);
         assertThat(testRobot.getLastOperationDttm()).isEqualTo(UPDATED_LAST_OPERATION_DTTM);
+        assertThat(testRobot.getDetectionDttm()).isEqualTo(UPDATED_DETECTION_DTTM);
         assertThat(testRobot.getLastPrice()).isEqualTo(UPDATED_LAST_PRICE);
         assertThat(testRobot.getVolumeByHour()).isEqualTo(UPDATED_VOLUME_BY_HOUR);
     }
@@ -476,12 +505,10 @@ class RobotResourceIT {
 
         partialUpdatedRobot
             .type(UPDATED_TYPE)
-            .period(UPDATED_PERIOD)
-            .operationCount(UPDATED_OPERATION_COUNT)
-            .firstOperationDttm(UPDATED_FIRST_OPERATION_DTTM)
+            .lots(UPDATED_LOTS)
+            .operationType(UPDATED_OPERATION_TYPE)
             .lastOperationDttm(UPDATED_LAST_OPERATION_DTTM)
-            .lastPrice(UPDATED_LAST_PRICE)
-            .volumeByHour(UPDATED_VOLUME_BY_HOUR);
+            .lastPrice(UPDATED_LAST_PRICE);
 
         restRobotMockMvc
             .perform(
@@ -497,14 +524,15 @@ class RobotResourceIT {
         assertThat(robotList).hasSize(databaseSizeBeforeUpdate);
         Robot testRobot = robotList.get(robotList.size() - 1);
         assertThat(testRobot.getType()).isEqualTo(UPDATED_TYPE);
-        assertThat(testRobot.getLots()).isEqualTo(DEFAULT_LOTS);
-        assertThat(testRobot.getPeriod()).isEqualTo(UPDATED_PERIOD);
-        assertThat(testRobot.getOperationType()).isEqualTo(DEFAULT_OPERATION_TYPE);
-        assertThat(testRobot.getOperationCount()).isEqualTo(UPDATED_OPERATION_COUNT);
-        assertThat(testRobot.getFirstOperationDttm()).isEqualTo(UPDATED_FIRST_OPERATION_DTTM);
+        assertThat(testRobot.getLots()).isEqualTo(UPDATED_LOTS);
+        assertThat(testRobot.getPeriod()).isEqualTo(DEFAULT_PERIOD);
+        assertThat(testRobot.getOperationType()).isEqualTo(UPDATED_OPERATION_TYPE);
+        assertThat(testRobot.getOperationCount()).isEqualTo(DEFAULT_OPERATION_COUNT);
+        assertThat(testRobot.getFirstOperationDttm()).isEqualTo(DEFAULT_FIRST_OPERATION_DTTM);
         assertThat(testRobot.getLastOperationDttm()).isEqualTo(UPDATED_LAST_OPERATION_DTTM);
+        assertThat(testRobot.getDetectionDttm()).isEqualTo(DEFAULT_DETECTION_DTTM);
         assertThat(testRobot.getLastPrice()).isEqualTo(UPDATED_LAST_PRICE);
-        assertThat(testRobot.getVolumeByHour()).isEqualTo(UPDATED_VOLUME_BY_HOUR);
+        assertThat(testRobot.getVolumeByHour()).isEqualTo(DEFAULT_VOLUME_BY_HOUR);
     }
 
     @Test
@@ -527,6 +555,7 @@ class RobotResourceIT {
             .operationCount(UPDATED_OPERATION_COUNT)
             .firstOperationDttm(UPDATED_FIRST_OPERATION_DTTM)
             .lastOperationDttm(UPDATED_LAST_OPERATION_DTTM)
+            .detectionDttm(UPDATED_DETECTION_DTTM)
             .lastPrice(UPDATED_LAST_PRICE)
             .volumeByHour(UPDATED_VOLUME_BY_HOUR);
 
@@ -550,6 +579,7 @@ class RobotResourceIT {
         assertThat(testRobot.getOperationCount()).isEqualTo(UPDATED_OPERATION_COUNT);
         assertThat(testRobot.getFirstOperationDttm()).isEqualTo(UPDATED_FIRST_OPERATION_DTTM);
         assertThat(testRobot.getLastOperationDttm()).isEqualTo(UPDATED_LAST_OPERATION_DTTM);
+        assertThat(testRobot.getDetectionDttm()).isEqualTo(UPDATED_DETECTION_DTTM);
         assertThat(testRobot.getLastPrice()).isEqualTo(UPDATED_LAST_PRICE);
         assertThat(testRobot.getVolumeByHour()).isEqualTo(UPDATED_VOLUME_BY_HOUR);
     }

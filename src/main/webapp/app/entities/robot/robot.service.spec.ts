@@ -33,7 +33,7 @@ describe('Service Tests', () => {
     beforeEach(() => {
       service = new RobotService();
       currentDate = new Date();
-      elemDefault = new Robot(123, 'SIMPLE', 'AAAAAAA', 0, 'BUY', 0, currentDate, currentDate, 0, 0);
+      elemDefault = new Robot(123, 'SIMPLE', 'AAAAAAA', 0, 'BUY', 0, currentDate, currentDate, currentDate, 0, 0);
     });
 
     describe('Service methods', () => {
@@ -42,6 +42,7 @@ describe('Service Tests', () => {
           {
             firstOperationDttm: dayjs(currentDate).format(DATE_TIME_FORMAT),
             lastOperationDttm: dayjs(currentDate).format(DATE_TIME_FORMAT),
+            detectionDttm: dayjs(currentDate).format(DATE_TIME_FORMAT),
           },
           elemDefault,
         );
@@ -68,6 +69,7 @@ describe('Service Tests', () => {
             id: 123,
             firstOperationDttm: dayjs(currentDate).format(DATE_TIME_FORMAT),
             lastOperationDttm: dayjs(currentDate).format(DATE_TIME_FORMAT),
+            detectionDttm: dayjs(currentDate).format(DATE_TIME_FORMAT),
           },
           elemDefault,
         );
@@ -75,6 +77,7 @@ describe('Service Tests', () => {
           {
             firstOperationDttm: currentDate,
             lastOperationDttm: currentDate,
+            detectionDttm: currentDate,
           },
           returnedFromService,
         );
@@ -106,6 +109,7 @@ describe('Service Tests', () => {
             operationCount: 1,
             firstOperationDttm: dayjs(currentDate).format(DATE_TIME_FORMAT),
             lastOperationDttm: dayjs(currentDate).format(DATE_TIME_FORMAT),
+            detectionDttm: dayjs(currentDate).format(DATE_TIME_FORMAT),
             lastPrice: 1,
             volumeByHour: 1,
           },
@@ -116,6 +120,7 @@ describe('Service Tests', () => {
           {
             firstOperationDttm: currentDate,
             lastOperationDttm: currentDate,
+            detectionDttm: currentDate,
           },
           returnedFromService,
         );
@@ -140,10 +145,10 @@ describe('Service Tests', () => {
       it('should partial update a Robot', async () => {
         const patchObject = Object.assign(
           {
+            type: 'BBBBBB',
             lots: 'BBBBBB',
             period: 1,
             operationType: 'BBBBBB',
-            operationCount: 1,
             lastPrice: 1,
             volumeByHour: 1,
           },
@@ -155,6 +160,7 @@ describe('Service Tests', () => {
           {
             firstOperationDttm: currentDate,
             lastOperationDttm: currentDate,
+            detectionDttm: currentDate,
           },
           returnedFromService,
         );
@@ -186,6 +192,7 @@ describe('Service Tests', () => {
             operationCount: 1,
             firstOperationDttm: dayjs(currentDate).format(DATE_TIME_FORMAT),
             lastOperationDttm: dayjs(currentDate).format(DATE_TIME_FORMAT),
+            detectionDttm: dayjs(currentDate).format(DATE_TIME_FORMAT),
             lastPrice: 1,
             volumeByHour: 1,
           },
@@ -195,6 +202,7 @@ describe('Service Tests', () => {
           {
             firstOperationDttm: currentDate,
             lastOperationDttm: currentDate,
+            detectionDttm: currentDate,
           },
           returnedFromService,
         );

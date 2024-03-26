@@ -1,60 +1,21 @@
 package ru.ani.scan.service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import ru.ani.scan.domain.Instrument;
 import ru.ani.scan.domain.Robot;
-import ru.ani.scan.domain.enumeration.OperationType;
-import ru.ani.scan.domain.enumeration.RobotType;
 import ru.ani.scan.utils.MyListComparator;
 
 @Service
+@Deprecated
 public class SimpleRobotServiceImpl implements SimpleRobotService {
 
     private static List<Robot> robotStore = new ArrayList<>();
-
-    static {
-        robotStore.add(
-            new Robot(
-                1L,
-                RobotType.SIMPLE,
-                "1,2",
-                1L,
-                OperationType.BUY,
-                1L,
-                LocalDateTime.now(),
-                LocalDateTime.now(),
-                1D,
-                1L,
-                new Instrument(1L, "MGNT")
-            )
-        );
-        robotStore.add(
-            new Robot(
-                2L,
-                RobotType.SIMPLE,
-                "2,3",
-                1L,
-                OperationType.BUY,
-                2L,
-                LocalDateTime.now(),
-                LocalDateTime.now(),
-                2D,
-                1L,
-                new Instrument(1L, "MGNT")
-            )
-        );
-    }
 
     @Override
     public Page<Robot> findAll(Pageable pageable) {

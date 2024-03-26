@@ -26,6 +26,7 @@
       "firstOperationDttm": "First Operation Dttm",
       "lastOperationDttm": "Last Operation Dttm",
       "nextOperationDttm": "Next Operation Dttm",
+      "detectionDttm": "Detection Dttm",
       "lastPrice": "Last Price",
       "volumeByHour": "Volume By Hour",
       "instrument": "Instrument"

@@ -1,5 +1,9 @@
 <template>
   <div>
+    <b-dropdown-item to="/instrument-type">
+      <font-awesome-icon icon="asterisk" />
+      <span v-text="t$('global.menu.entities.instrumentType')"></span>
+    </b-dropdown-item>
     <b-dropdown-item to="/instrument">
       <font-awesome-icon icon="asterisk" />
       <span v-text="t$('global.menu.entities.instrument')"></span>

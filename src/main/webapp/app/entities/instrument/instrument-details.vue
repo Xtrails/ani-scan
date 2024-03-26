@@ -12,6 +12,16 @@
           <dd>
             <span>{{ instrument.secCode }}</span>
           </dd>
+          <dt>
+            <span v-text="t$('aniScanApp.instrument.type')"></span>
+          </dt>
+          <dd>
+            <div v-if="instrument.type">
+              <router-link :to="{ name: 'InstrumentTypeView', params: { instrumentTypeId: instrument.type.id } }">{{
+                instrument.type.id
+              }}</router-link>
+            </div>
+          </dd>
         </dl>
         <button type="submit" v-on:click.prevent="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
           <font-awesome-icon icon="arrow-left"></font-awesome-icon>&nbsp;<span v-text="t$('entity.action.back')"></span>

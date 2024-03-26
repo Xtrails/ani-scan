@@ -1,6 +1,5 @@
 entity Robot {
     type RobotType required
-    instrument Instrument required
     lots String required
     period Long required
     operationType OperationType required
@@ -14,9 +13,7 @@ entity Robot {
 
 entity Instrument {
 	secCode String required
-    type InstrumentType required
 }
-
 
 entity InstrumentType {
 	name String required

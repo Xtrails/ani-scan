@@ -60,6 +60,10 @@
               <span v-text="t$('aniScanApp.robot.lastOperationDttm')"></span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'lastOperationDttm'"></jhi-sort-indicator>
             </th>
+            <th scope="row" v-on:click="changeOrder('detectionDttm')">
+              <span v-text="t$('aniScanApp.robot.detectionDttm')"></span>
+              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'detectionDttm'"></jhi-sort-indicator>
+            </th>
             <th scope="row" v-on:click="changeOrder('lastPrice')">
               <span v-text="t$('aniScanApp.robot.lastPrice')"></span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'lastPrice'"></jhi-sort-indicator>
@@ -87,6 +91,7 @@
             <td>{{ robot.operationCount }}</td>
             <td>{{ formatDateShort(robot.firstOperationDttm) || '' }}</td>
             <td>{{ formatDateShort(robot.lastOperationDttm) || '' }}</td>
+            <td>{{ formatDateShort(robot.detectionDttm) || '' }}</td>
             <td>{{ robot.lastPrice }}</td>
             <td>{{ robot.volumeByHour }}</td>
             <td>

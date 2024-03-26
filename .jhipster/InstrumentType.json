@@ -1,0 +1,25 @@
+{
+  "annotations": {
+    "changelogDate": "20240225095343"
+  },
+  "applications": "*",
+  "entityTableName": "instrument_type",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "InstrumentType",
+  "relationships": [
+    {
+      "otherEntityName": "instrument",
+      "otherEntityRelationshipName": "type",
+      "relationshipName": "instrument",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no"
+}

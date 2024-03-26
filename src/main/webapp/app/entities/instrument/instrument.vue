@@ -30,6 +30,7 @@
           <tr>
             <th scope="row"><span v-text="t$('global.field.id')"></span></th>
             <th scope="row"><span v-text="t$('aniScanApp.instrument.secCode')"></span></th>
+            <th scope="row"><span v-text="t$('aniScanApp.instrument.type')"></span></th>
             <th scope="row"></th>
           </tr>
         </thead>
@@ -39,6 +40,13 @@
               <router-link :to="{ name: 'InstrumentView', params: { instrumentId: instrument.id } }">{{ instrument.id }}</router-link>
             </td>
             <td>{{ instrument.secCode }}</td>
+            <td>
+              <div v-if="instrument.type">
+                <router-link :to="{ name: 'InstrumentTypeView', params: { instrumentTypeId: instrument.type.id } }">{{
+                  instrument.type.id
+                }}</router-link>
+              </div>
+            </td>
             <td class="text-right">
               <div class="btn-group">
                 <router-link :to="{ name: 'InstrumentView', params: { instrumentId: instrument.id } }" custom v-slot="{ navigate }">

@@ -12,6 +12,7 @@
       :rowHeight="rowHeight"
       :rowSelection="rowSelection"
       :defaultColDef="defaultColDef"
+      suppressRowVirtualisation="true"
       @grid-ready="onGridReady"
     >
     </ag-grid-vue>

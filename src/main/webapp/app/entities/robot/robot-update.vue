@@ -151,6 +151,25 @@
             </div>
           </div>
           <div class="form-group">
+            <label class="form-control-label" v-text="t$('aniScanApp.robot.detectionDttm')" for="robot-detectionDttm"></label>
+            <div class="d-flex">
+              <input
+                id="robot-detectionDttm"
+                data-cy="detectionDttm"
+                type="datetime-local"
+                class="form-control"
+                name="detectionDttm"
+                :class="{ valid: !v$.detectionDttm.$invalid, invalid: v$.detectionDttm.$invalid }"
+                required
+                :value="convertDateTimeFromServer(v$.detectionDttm.$model)"
+                @change="updateInstantField('detectionDttm', $event)"
+              />
+            </div>
+            <div v-if="v$.detectionDttm.$anyDirty && v$.detectionDttm.$invalid">
+              <small class="form-text text-danger" v-for="error of v$.detectionDttm.$errors" :key="error.$uid">{{ error.$message }}</small>
+            </div>
+          </div>
+          <div class="form-group">
             <label class="form-control-label" v-text="t$('aniScanApp.robot.lastPrice')" for="robot-lastPrice"></label>
             <input
               type="number"

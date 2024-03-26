@@ -15,7 +15,7 @@
     "enableHibernateCache": false,
     "enableSwaggerCodegen": "true",
     "enableTranslation": true,
-    "entities": ["Instrument", "Robot"],
+    "entities": ["InstrumentType", "Instrument", "Robot"],
     "gitCompany": "",
     "jhiPrefix": "jhi",
     "jhipsterVersion": "8.1.0",

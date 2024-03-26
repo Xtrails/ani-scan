@@ -19,7 +19,8 @@
       },
       "id": "ID",
       "secCode": "Sec Code",
-      "robot": "Robot"
+      "robot": "Robot",
+      "type": "Type"
     }
   }
 }
