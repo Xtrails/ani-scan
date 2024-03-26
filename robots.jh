@@ -1,21 +1,34 @@
-entity Instrument {
-	secCode String
-}
-
 entity Robot {
     type RobotType required
+    instrument Instrument required
     lots String required
     period Long required
     operationType OperationType required
     operationCount Long required
     firstOperationDttm Instant required
     lastOperationDttm Instant required
+    detectionDttm Instant required
     lastPrice Double
     volumeByHour Long
 }
 
+entity Instrument {
+	secCode String required
+    type InstrumentType required
+}
+
+
+entity InstrumentType {
+	name String required
+}
+
 relationship OneToMany {
 	Instrument to Robot{instrument}
+}
+
+
+relationship OneToMany {
+	InstrumentType to Instrument{type}
 }
 
 enum RobotType {
